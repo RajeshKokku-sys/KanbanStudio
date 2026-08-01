@@ -1,0 +1,29 @@
+# Docker Compose file (version omitted – Docker Compose v2+ infers the version automatically)
+
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: pm_backend
+    ports:
+      - "8000:8000"
+    # Load environment variables (e.g., OPENROUTER_API_KEY). The file is optional; an empty placeholder is provided.
+    env_file:
+      - .env
+    volumes:
+      - ./backend:/app
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: pm_frontend
+    ports:
+      - "3000:80"
+    volumes:
+      - ./frontend:/app
+    restart: unless-stopped
+
+networks:
+  default:
+    driver: bridge

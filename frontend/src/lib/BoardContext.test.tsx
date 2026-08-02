@@ -161,4 +161,22 @@ describe("BoardProvider", () => {
     expect(updateCard).not.toHaveBeenCalled();
     expect(context?.board).toEqual(TEST_BOARD);
   });
+
+  it("refreshBoard reloads the board from the API", async () => {
+    vi.mocked(getBoard).mockResolvedValue(TEST_BOARD);
+    renderWithContext();
+    await awaitBoard();
+    expect(getBoard).toHaveBeenCalledTimes(1);
+
+    const updated = {
+      ...TEST_BOARD,
+      title: "Refreshed",
+    };
+    vi.mocked(getBoard).mockResolvedValue(updated);
+
+    await act(() => context?.refreshBoard());
+
+    expect(getBoard).toHaveBeenCalledTimes(2);
+    await waitFor(() => expect(context?.board?.title).toBe("Refreshed"));
+  });
 });

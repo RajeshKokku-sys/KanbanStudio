@@ -7,6 +7,25 @@ export type CardPatch = {
   position?: number;
 };
 
+export type BoardUpdateType = "add" | "edit" | "move" | "delete";
+
+export type BoardUpdate = {
+  type: BoardUpdateType;
+  cardId?: string;
+  columnId?: string;
+  payload?: { title?: string; description?: string; order?: number };
+};
+
+export type AiAskResponse = {
+  message: string;
+  boardUpdates?: BoardUpdate[];
+};
+
+export type ChatHistoryItem = {
+  role: "user" | "assistant";
+  content: string;
+};
+
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 
 const parseOrThrow = async (response: Response) => {
@@ -59,4 +78,16 @@ export const removeCard = async (userId: string, cardId: string): Promise<void> 
   if (!response.ok) {
     throw new Error(`Request failed with status ${response.status}`);
   }
+};
+
+export const askAi = async (
+  question: string,
+  history: ChatHistoryItem[]
+): Promise<AiAskResponse> => {
+  const response = await fetch(`${API_BASE_URL}/ai/ask`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ question, history }),
+  });
+  return parseOrThrow(response);
 };

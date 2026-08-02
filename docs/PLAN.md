@@ -198,17 +198,18 @@
 **Goal:** Provide a polished, responsive sidebar for chatting with the LLM and automatically applying board updates.
 
 **Checklist**
-1. Create `components/AIChatSidebar.tsx` with a collapsible drawer (styled using the project colour palette).
-2. Hook the sidebar to the `/ai/ask` endpoint, display the assistant’s `message`, and show a loading spinner.
-3. When `boardUpdates` are present, dispatch actions to the board context to refresh the UI.
-4. Add unit tests for the sidebar component (mock fetch, verify UI changes).
-5. Ensure the sidebar is accessible (keyboard navigation, ARIA labels).
+1. Create `components/AIChatSidebar.tsx` with a collapsible drawer (styled using the project colour palette). ✅
+2. Hook the sidebar to the `/ai/ask` endpoint, display the assistant’s `message`, and show a loading spinner. ✅
+3. When `boardUpdates` are present, dispatch actions to the board context to refresh the UI. ✅
+4. Add unit tests for the sidebar component (mock fetch, verify UI changes). ✅
+5. Ensure the sidebar is accessible (keyboard navigation, ARIA labels). ✅
 
 **Success criteria**
-* The sidebar can be opened/closed and sends queries to the backend.
-* Responses appear in the chat view.
-* Board updates are reflected instantly without a full page reload.
-* All component tests pass and the UI follows the defined colour scheme.
+* The sidebar can be opened/closed and sends queries to the backend. ✅
+* Responses appear in the chat view. ✅
+* Board updates are reflected instantly without a full page reload. ✅
+* All component tests pass and the UI follows the defined colour scheme. ✅
+* ✅ Part 10 completed.
 
 ---
 

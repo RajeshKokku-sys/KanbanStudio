@@ -66,9 +66,24 @@ Structured AI interaction implemented and verified live against OpenRouter:
 - uvicorn smoke test: server boots from `backend/`, `POST /ai/ask` returns real structured response from OpenRouter and DB reflects applied updates
 - Live e2e (TestClient, temp DB): AI added a card to Backlog; `GET /boards/user` returned the new card
 
+## Part 10: COMPLETE (verified)
+AI chat sidebar UI implemented on the frontend:
+- `frontend/src/lib/api.ts`: added AI types (`AiAskResponse`, `BoardUpdate`, `ChatHistoryItem`) and `askAi(question, history)` which POSTs to `/ai/ask`.
+- `frontend/src/lib/BoardContext.tsx`: added `refreshBoard()` (re-fetches the board via `getBoard`) to the context value so the UI can reflect backend-applied AI changes.
+- `frontend/src/components/AIChatSidebar.tsx`: collapsible drawer (blue-purple-yellow palette). Fixed toggle button opens/closes (`aria-expanded`/`aria-controls`), chat renders user (blue) and assistant (surface) bubbles, a spinner while awaiting a reply, an error alert on failure, and a labelled form input ("Message the assistant"). On a reply with `boardUpdates`, calls board context `refreshBoard()` so the board updates instantly without a reload.
+- `frontend/src/app/page.tsx`: renders `<AIChatSidebar />` inside `BoardProvider` alongside `KanbanBoard`.
+- Tests: `AIChatSidebar.test.tsx` (8: open/close, bubbles, history passthrough, refresh-on-updates, loading, error, empty-message guard), `askAi` request-shape test in `api.test.ts`, and `refreshBoard reloads the board` in `BoardContext.test.tsx`.
+- Accessibility: labelled toggle + close buttons, labelled input, `role="status"` spinner, `role="alert"` error, `aria-live` on spinner.
+- Updated `frontend/AGENTS.md`, PLAN.md Part 10 checklists ticked.
+
+## Verification results (all pass)
+- Backend: `pytest -q` -> 36 passed (unchanged)
+- Frontend unit/integration: `npm test` -> 35 passed (6 files)
+- Frontend typecheck: `npx tsc --noEmit` clean; `npm run lint` clean
+- Frontend build: `npm run build` compiles successfully
+
 ## Notes / not done
-- Part 9 COMPLETE (structured AI interaction, verified live) — see section below
-- Part 10 NOT started (AI chat sidebar UI)
+- Parts 1-10 COMPLETE.
 - `tests/kanban.e2e.ts` is not matched by Playwright's default testMatch (`*.e2e.ts` != `*.spec.ts`/`*.test.ts`) and is dead/duplicate of `tests/kanban.spec.ts`; could be deleted or renamed
 - A 500 from the backend does not carry `Access-Control-Allow-Origin` (Starlette error response bypasses CORSMiddleware); harmless in normal operation
 - Docker backend container must be restarted after backend code changes (`docker compose restart backend`) since uvicorn runs without --reload

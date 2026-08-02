@@ -1,6 +1,7 @@
 "use client";
 
 import { KanbanBoard } from "@/components/KanbanBoard";
+import { AIChatSidebar } from "@/components/AIChatSidebar";
 import { BoardProvider } from "@/lib/BoardContext";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -31,6 +32,7 @@ export default function Home() {
       </div>
       <BoardProvider>
         <KanbanBoard />
+        <AIChatSidebar />
       </BoardProvider>
     </>
   );

@@ -27,6 +27,7 @@ export type BoardContextValue = {
   addCard: (columnId: string, title: string, details: string) => void;
   moveCard: (activeId: string, overId: string) => void;
   deleteCard: (columnId: string, cardId: string) => void;
+  refreshBoard: () => Promise<void>;
 };
 
 const BoardContext = createContext<BoardContextValue | null>(null);
@@ -163,6 +164,17 @@ export const BoardProvider = ({ children }: { children: ReactNode }) => {
     );
   };
 
+  const refreshBoard = async () => {
+    try {
+      const data = await getBoard(USER_ID);
+      if (data) {
+        setBoard(data);
+      }
+    } catch {
+      setError("Failed to refresh the board.");
+    }
+  };
+
   return (
     <BoardContext.Provider
       value={{
@@ -173,6 +185,7 @@ export const BoardProvider = ({ children }: { children: ReactNode }) => {
         addCard,
         moveCard,
         deleteCard,
+        refreshBoard,
       }}
     >
       {children}

@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { getBoard, removeCard, saveBoard, updateCard } from "@/lib/api";
+import { askAi, getBoard, removeCard, saveBoard, updateCard } from "@/lib/api";
 import type { BoardData } from "@/lib/kanban";
 
 const BOARD: BoardData = {
@@ -78,6 +78,21 @@ describe("api client", () => {
     expect(fetchMock).toHaveBeenCalledWith(
       "http://localhost:8000/boards/user/cards/card-1",
       expect.objectContaining({ method: "DELETE" })
+    );
+  });
+
+  it("askAi POSTs a question and history to /ai/ask", async () => {
+    const reply = { message: "Done.", boardUpdates: [] };
+    fetchMock.mockResolvedValue(jsonResponse(reply));
+    const history = [{ role: "user" as const, content: "Hi" }];
+    await expect(askAi("Add a card", history)).resolves.toEqual(reply);
+    expect(fetchMock).toHaveBeenCalledWith(
+      "http://localhost:8000/ai/ask",
+      expect.objectContaining({
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question: "Add a card", history }),
+      })
     );
   });
 });

@@ -1,13 +1,21 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, type Page } from "@playwright/test";
 
 /**
  * End‑to‑end test that verifies the Kanban board renders with the expected
  * number of columns and that a card can be added and removed.
  */
+async function login(page: Page) {
+  await page.goto("/login");
+  await page.getByTestId("username-input").fill("user");
+  await page.getByTestId("password-input").fill("password");
+  await page.getByTestId("login-button").click();
+  await expect(page).toHaveURL(/\/$/);
+}
+
 test.describe("Kanban board UI", () => {
   test.beforeEach(async ({ page }) => {
-    // Navigate to the root of the dev server (configured in playwright.config.ts)
-    await page.goto("/");
+    // Sign in first, since the / route is guarded by the login screen
+    await login(page);
   });
 
   test("renders five columns", async ({ page }) => {

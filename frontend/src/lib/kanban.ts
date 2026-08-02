@@ -11,11 +11,15 @@ export type Column = {
 };
 
 export type BoardData = {
+  id: string;
+  title: string;
   columns: Column[];
   cards: Record<string, Card>;
 };
 
-export const initialData: BoardData = {
+export const initialBoard: BoardData = {
+  id: "board-1",
+  title: "Kanban Studio",
   columns: [
     { id: "col-backlog", title: "Backlog", cardIds: ["card-1", "card-2"] },
     { id: "col-discovery", title: "Discovery", cardIds: ["card-3"] },
@@ -74,7 +78,7 @@ export const initialData: BoardData = {
 const isColumnId = (columns: Column[], id: string) =>
   columns.some((column) => column.id === id);
 
-const findColumnId = (columns: Column[], id: string) => {
+export const findColumnId = (columns: Column[], id: string) => {
   if (isColumnId(columns, id)) {
     return id;
   }

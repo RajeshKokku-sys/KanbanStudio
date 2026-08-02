@@ -1,6 +1,7 @@
 "use client";
 
 import { KanbanBoard } from "@/components/KanbanBoard";
+import { BoardProvider } from "@/lib/BoardContext";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
@@ -28,7 +29,9 @@ export default function Home() {
           Logout
         </button>
       </div>
-      <KanbanBoard />
+      <BoardProvider>
+        <KanbanBoard />
+      </BoardProvider>
     </>
   );
 }

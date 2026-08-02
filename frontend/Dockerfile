@@ -21,6 +21,9 @@ FROM nginx:alpine
 # Copy the exported static site into nginx html directory
 COPY --from=builder /app/out /usr/share/nginx/html
 
+# Serve the export correctly (routes are emitted as <route>.html files)
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
 # Expose default HTTP port
 EXPOSE 80
 

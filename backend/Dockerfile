@@ -1,12 +1,15 @@
 # Use official Python slim image
 FROM python:3.12-slim
 
+# Install uv as the Python package manager
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
+
 # Set working directory
 WORKDIR /app
 
-# Install dependencies
+# Install dependencies via uv
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN uv pip install --system -r requirements.txt
 
 # Copy application code
 COPY . .

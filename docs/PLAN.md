@@ -84,14 +84,15 @@
 **Goal:** Define a persistent SQLite schema that can store multiple users and their Kanban data.
 
 **Checklist**
-1. Draft an ER diagram and JSON representation of the schema.
-2. Create `docs/DB_SCHEMA.md` describing tables: `users`, `boards`, `columns`, `cards`.
-3. Include migration script (`backend/migrations/001_init.sql`).
-4. Obtain user sign‑off on the schema.
+1. Draft an ER diagram and JSON representation of the schema. ✅
+2. Create `docs/DB_SCHEMA.md` describing tables: `users`, `boards`, `columns`, `cards`. ✅
+3. Include migration script (`backend/migrations/001_init.sql`). ✅
+4. Obtain user sign‑off on the schema. ✅
 
 **Success criteria**
 * Schema document is approved by the user.
 * Migration script can be executed to create the DB without errors.
+* ✅ Part 5 completed.
 
 ---
 
@@ -100,20 +101,21 @@
 **Goal:** Provide fully‑tested CRUD endpoints for the Kanban board.
 
 **Checklist**
-1. Initialise the SQLite DB on FastAPI startup (create if missing).
-2. Implement endpoints:
-	 * `GET /boards/{user_id}` – fetch board JSON.
-	 * `POST /boards/{user_id}` – create/replace board.
-	 * `PATCH /boards/{user_id}/cards/{card_id}` – update a card.
-	 * `DELETE /boards/{user_id}/cards/{card_id}` – delete a card.
-3. Add Pydantic models for request/response validation.
-4. Write Pytest unit tests covering each endpoint, including error cases.
-5. Ensure the backend container can be started with `uvicorn main:app --host 0.0.0.0 --port 8000`.
+1. Initialise the SQLite DB on FastAPI startup (create if missing). ✅
+2. Implement endpoints: ✅
+	 * `GET /boards/{user_id}` – fetch board JSON. ✅
+	 * `POST /boards/{user_id}` – create/replace board. ✅
+	 * `PATCH /boards/{user_id}/cards/{card_id}` – update a card. ✅
+	 * `DELETE /boards/{user_id}/cards/{card_id}` – delete a card. ✅
+3. Add Pydantic models for request/response validation. ✅
+4. Write Pytest unit tests covering each endpoint, including error cases. ✅
+5. Ensure the backend container can be started with `uvicorn main:app --host 0.0.0.0 --port 8000`. ✅
 
 **Success criteria**
 * All endpoints return the expected status codes and JSON payloads.
 * Pytest suite passes (`pytest -q` exits with 0).
 * The DB file is created on first run.
+* ✅ Part 6 completed.
 
 ---
 
@@ -122,15 +124,16 @@
 **Goal:** Persist board state via the API and keep the UI in sync.
 
 **Checklist**
-1. Replace static mock data with calls to the backend (`fetch` or `axios`).
-2. Store board state in a React context/provider.
-3. Add optimistic UI updates for drag‑and‑drop actions.
-4. Write integration tests that mock the API and verify UI updates.
+1. Replace static mock data with calls to the backend (`fetch` or `axios`). ✅
+2. Store board state in a React context/provider. ✅
+3. Add optimistic UI updates for drag‑and‑drop actions. ✅
+4. Write integration tests that mock the API and verify UI updates. ✅
 
 **Success criteria**
-* Reloading the page shows the same board state (persistence).
-* Drag‑and‑drop moves cards and persists the change.
-* All integration tests pass.
+* Reloading the page shows the same board state (persistence). ✅
+* Drag‑and‑drop moves cards and persists the change. ✅
+* All integration tests pass. ✅
+* ✅ Part 7 completed.
 
 ---
 
@@ -139,13 +142,14 @@
 **Goal:** Verify that the backend can call the OpenRouter LLM.
 
 **Checklist**
-1. Add a thin wrapper (`backend/ai_client.py`) that reads `OPENROUTER_API_KEY` from `.env`.
-2. Implement a test endpoint `GET /ai/ping` that sends the prompt `2+2` and returns the model's answer.
-3. Write a Pytest that mocks the HTTP request and asserts the response is `4` (or the model’s numeric answer).
+1. Add a thin wrapper (`backend/ai_client.py`) that reads `OPENROUTER_API_KEY` from `.env`. ✅
+2. Implement a test endpoint `GET /ai/ping` that sends the prompt `2+2` and returns the model's answer. ✅
+3. Write a Pytest that mocks the HTTP request and asserts the response is `4` (or the model’s numeric answer). ✅
 
 **Success criteria**
-* The endpoint returns a numeric answer for the simple arithmetic prompt.
-* Test suite validates the wrapper without making a real network call.
+* The endpoint returns a numeric answer for the simple arithmetic prompt. ✅
+* Test suite validates the wrapper without making a real network call. ✅
+* ✅ Part 8 completed.
 
 ---
 
@@ -154,19 +158,20 @@
 **Goal:** Exchange the full board JSON and user query with the LLM, receiving a structured response that may include board updates.
 
 **Checklist**
-1. Define the JSON schema (see below) and add it to `backend/ai_schema.json`.
-2. Extend `ai_client.py` to send `{board, question, history}` and parse the structured output.
-3. Implement a service layer (`backend/services/ai_service.py`) that validates the response against the schema.
-4. Add endpoint `POST /ai/ask` that accepts `{question}` and returns `{message, boardUpdates}`.
+1. Define the JSON schema (see below) and add it to `backend/ai_schema.json`. ✅
+2. Extend `ai_client.py` to send `{board, question, history}` and parse the structured output. ✅
+3. Implement a service layer (`backend/services/ai_service.py`) that validates the response against the schema. ✅
+4. Add endpoint `POST /ai/ask` that accepts `{question}` and returns `{message, boardUpdates}`. ✅
 5. Write comprehensive tests covering:
-	 * Valid structured response → board updates applied.
-	 * Missing `boardUpdates` → only message returned.
-	 * Invalid schema → error handling.
+	 * Valid structured response → board updates applied. ✅
+	 * Missing `boardUpdates` → only message returned. ✅
+	 * Invalid schema → error handling. ✅
 
 **Success criteria**
-* The endpoint returns a JSON object matching the schema.
-* When `boardUpdates` are present, the DB is updated accordingly.
-* All tests pass.
+* The endpoint returns a JSON object matching the schema. ✅
+* When `boardUpdates` are present, the DB is updated accordingly. ✅
+* All tests pass. ✅
+* ✅ Part 9 completed.
 
 **Proposed AI response schema**
 ```json

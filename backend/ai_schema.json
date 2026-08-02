@@ -1,0 +1,14 @@
+{
+  "message": "string",
+  "boardUpdates": [
+    {
+      "type": "add|edit|move|delete",
+      "cardId": "string",
+      "columnId": "string",
+      "payload": { "title": "string", "description": "string", "order": "number" }
+    }
+  ],
+  "conversationHistory": [
+    { "role": "user|assistant", "content": "string" }
+  ]
+}

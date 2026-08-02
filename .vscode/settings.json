@@ -1,0 +1,5 @@
+{
+    "editor.experimental.asyncTokenizationLogging": false,
+    "editor.maxTokenizationLineLength": 20000,
+    "github.copilot.chat.gemini35FlashReducedToolUsePrompt.enabled": true
+}

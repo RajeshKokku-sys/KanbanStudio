@@ -68,7 +68,7 @@ export const AIChatSidebar = ({ initialOpen = false }: { initialOpen?: boolean }
         onClick={handleToggle}
         aria-expanded={open}
         aria-controls="ai-chat-drawer"
-        className="fixed bottom-6 right-6 z-40 rounded-full bg-[var(--secondary-purple)] px-5 py-3 text-sm font-semibold text-white shadow-[var(--shadow)] transition hover:opacity-90"
+        className="fixed right-5 top-5 z-40 rounded-full bg-[var(--secondary-purple)] px-5 py-3 text-sm font-semibold text-white shadow-[var(--shadow)] transition hover:opacity-90"
       >
         {open ? "Close assistant" : "Ask the AI"}
       </button>
@@ -77,7 +77,7 @@ export const AIChatSidebar = ({ initialOpen = false }: { initialOpen?: boolean }
         <aside
           id="ai-chat-drawer"
           aria-label="AI chat assistant"
-          className="fixed bottom-6 right-6 z-30 flex h-[min(32rem,calc(100vh-6rem))] w-[min(24rem,calc(100vw-3rem))] flex-col overflow-hidden rounded-3xl border border-[var(--stroke)] bg-[var(--surface-strong)] shadow-[var(--shadow)]"
+          className="fixed right-5 top-[4.75rem] z-30 flex h-[calc(100vh-6rem)] w-[min(24rem,calc(100vw-3rem))] flex-col overflow-hidden rounded-3xl border border-[var(--stroke)] bg-[var(--surface-strong)] shadow-[var(--shadow)]"
         >
           <div className="flex items-center justify-between border-b border-[var(--stroke)] bg-white/80 px-5 py-4">
             <div className="flex items-center gap-3">

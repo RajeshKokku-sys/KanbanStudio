@@ -19,7 +19,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="flex justify-end p-4">
+      <div className="flex p-4">
         <button
           className="rounded bg-[var(--primary-blue)] px-4 py-2 text-white"
           onClick={() => {

@@ -7,8 +7,9 @@ This directory contains the Next.js frontend for the Project Management MVP.
 - `src/app/page.tsx` – the main Kanban board page. Guards the `/` route: unauthenticated
   users (no `auth` flag in `sessionStorage`) are redirected to `/login`. Contains a logout
   button that clears the flag.
-- `src/app/login/page.tsx` – fake sign-in page validating against hard-coded credentials
-  (`user` / `password`). On success stores `auth=true` in `sessionStorage` and redirects to `/`.
+- `src/app/login/page.tsx` – branded sign-in page validating against hard-coded credentials
+  (`user` / `password`), with password show/hide, an error message, and a demo hint. On success
+  stores `auth=true` in `sessionStorage` and redirects to `/`.
 - `src/components/KanbanBoard.tsx` – the interactive board: columns, drag-and-drop via
   `@dnd-kit`, card add/delete, and column rename. It consumes board state from
   `BoardContext` (Part 7 removed the static mock data).
@@ -27,8 +28,8 @@ This directory contains the Next.js frontend for the Project Management MVP.
   Actions update the UI optimistically and then persist (moves via the PATCH endpoint,
   the rest via a full board POST); `refreshBoard` re-fetches from the API (used by the
   AI sidebar after board updates).
-- `src/components/AIChatSidebar.tsx` – collapsible AI chat drawer (Part 10). Toggles a
-  hidden-on-mount fixed button, POSTs `{question, history}` to `/ai/ask` via `askAi`,
+- `src/components/AIChatSidebar.tsx` – collapsible AI chat drawer (Part 10) anchored to the
+  top-right. Toggles a fixed button, POSTs `{question, history}` to `/ai/ask` via `askAi`,
   renders user/assistant bubbles plus a loading spinner, and calls board context
   `refreshBoard()` whenever the AI returns `boardUpdates`.
 - `src/app/globals.css` – global styles and the project colour palette
